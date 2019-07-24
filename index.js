@@ -1,16 +1,14 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 
 export default class Home extends React.Component {
-	constructor(props) {
-		super(props);
-
-		console.log('constructor', props);
-	}
 	render() {
-		console.log('render');
-		return <div>Hello Home Page</div>;
+		return (
+            <div>
+                <button onClick={() => this.setState({ count: 0 })}>click</button>
+            </div>
+        );
 	}
 }
 
-console.log(<Home />);
+ReactDOM.render(<Home />, document.querySelector('#container'));

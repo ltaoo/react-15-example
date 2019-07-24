@@ -1,5 +1,11 @@
 const sep = require('path').sep;
 
+let indent = 0;
+
+function renderSpaceWhite(number) {
+    return ' '.replace(number);
+}
+
 function canInsertConsole(filename) {
     // return true;
 	const reactModulePaths = ['node_modules', 'react'];
@@ -9,15 +15,15 @@ function canInsertConsole(filename) {
 }
 
 function findIdentifier(path) {
-    console.log(path.node.type);
+    // console.log(path.node.type);
     if (path.isFunctionDeclaration()) {
-        console.log('isFunctionDeclaration');
+        // console.log('isFunctionDeclaration');
         return path.node.id.name;
     }
     if (path.isFunctionExpression()) {
         const expressionStatement = path.findParent((path) => path.isExpressionStatement());
         if (expressionStatement && expressionStatement.node.expression) {
-            console.log('isExpressionStatement');
+            // console.log('isExpressionStatement');
             if (expressionStatement.node.expression.type === 'AssignmentExpression') {
                 const left = expressionStatement.node.expression.left;
                 if (left.type === 'MemberExpression') {
@@ -27,15 +33,15 @@ function findIdentifier(path) {
         }
         const objectPropertyPath = path.findParent((path) => path.isObjectProperty());
         if (objectPropertyPath && objectPropertyPath.node.key) {
-            console.log('isObjectProperty');
+            // console.log('isObjectProperty');
             if (path.node.type === 'ArrowFunctionExpression') {
-                console.log(objectPropertyPath.node.key.name);
+                // console.log(objectPropertyPath.node.key.name);
             }
             return objectPropertyPath.node.key.name;
         }
         const variableDeclaratorPath = path.findParent((path) => path.isVariableDeclarator());
         if (variableDeclaratorPath && variableDeclaratorPath.node.id) {
-            console.log('isVariableDeclarator', variableDeclaratorPath.node);
+            // console.log('isVariableDeclarator', variableDeclaratorPath.node);
             return variableDeclaratorPath.node.id.name;
         }
     }
@@ -61,7 +67,6 @@ function handle(path, state, t) {
 	// console.log(filename, reactModulePaths.join(sep), filename.indexOf(reactModulePaths.join(sep)));
 	if (canInsertConsole(filename)) {
         const identifier = findIdentifier(path);
-		// console.log('insert', identifier, filename);
 		path.node.body.body.unshift(
 			consoleExpression(t, `${identifier} start`, ...params),
 		);

@@ -3797,6 +3797,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-dom@15.3.1:
+  version "15.3.1"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-15.3.1.tgz#6d42cd2b64c8c5e0b693f3ffaec301e6e627e24e"
+  integrity sha1-bULNK2TIxeC2k/P/rsMB5uYn4k4=
+
 react@15.3.1:
   version "15.3.1"
   resolved "https://registry.npm.taobao.org/react/download/react-15.3.1.tgz#f78501ed8c2ec6e6e31c3223652e97f1369d2bd6"
